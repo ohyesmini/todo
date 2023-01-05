@@ -20,8 +20,8 @@ export default {
       console.log(this.newTodoItem);
       //save
       if(this.newTodoItem != ''){
-        var obj ={completed: false, item: this.newTodoItem}
-        localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+        
+        this.$emit('addItem', this.newTodoItem)
         this.clearInput();
       }
     },
