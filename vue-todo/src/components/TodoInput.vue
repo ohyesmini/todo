@@ -4,14 +4,32 @@
     <span class="addContainer" v-on:click="addTodo">
       <i class="addBtn fas fa-plus" aria-hidden="true"></i>
     </span>
+    <!-- use the modal component, pass in the prop -->
+    <modal v-if="showModal" @close="showModal = false">
+        <!--
+      you can use custom content here to overwrite
+      default content
+    -->
+      <h3 slot="header">
+        warning!!
+        <i class="closeModalBtn fas fa-times" @click="showModal=false"></i>
+      </h3>
+       <h3 slot="body">
+        plz insert sth
+      </h3>
+       
+    </modal>
+
   </div>
 </template>
 
 <script>
+import Modal from './common/Modal.vue'
 export default {
   data: function(){
     return{
-      newTodoItem: ""
+      newTodoItem: "",
+      showModal: false
     }
   },
 
@@ -23,13 +41,21 @@ export default {
         
         this.$emit('addItem', this.newTodoItem)
         this.clearInput();
+      }else{
+        this.showModal = !this.showModal;
+
+
       }
     },
     clearInput: function(){
       //initial input box
       this.newTodoItem = '';
     }
+  },
+  components:{
+    Modal: Modal
   }
+  
 
 
 
@@ -60,6 +86,11 @@ input:focus {
 }
 .addBtn {
   color: white;
+  vertical-align: middle;
+}
+
+.closeModalBtn {
+  color: #42b983;
   vertical-align: middle;
 }
 </style>
